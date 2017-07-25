@@ -10,8 +10,15 @@ class Swipe {
         this.elem.addEventListener("touchend", touchEndEventHandler);
     }
 
-    touchStartEventHandler(event) {
+    get shift() {
+        return document.querySelector('.viewport').getAttribute('style').replace(/--current: ([0-9]+);/,'$1') * 1;
+    }
+    set shift(val) {
+        document.querySelector('.viewport').setAttribute('style', `--current: ${val}`);
+    }
 
+    touchStartEventHandler(event) {
+        console.log(event);
     }
 
     touchMoveEventHandler(event) {
