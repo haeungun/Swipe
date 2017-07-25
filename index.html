@@ -1,0 +1,56 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    width: 100vw;
+    height: 300px;
+    background: gray;
+    overflow: hidden;
+  }
+  .viewport {
+    transform: translateX(calc(-100vw * var(--current)));
+    float: left;
+    display: flex;
+  }
+  .viewport section {
+    height: 100vh;
+    width: 100vw;
+  }
+  .section1 {
+    background: red;
+  }
+  .section2 {
+    background: green;
+  }
+  .section3 {
+    background: blue;
+  }
+  .section4 {
+    background: purple;
+  }
+  .section5 {
+    background: palegoldenrod;
+  }
+  .transition {
+    transition: .5s;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="viewport transition" style="--current:0">
+    <section class="section1"></section>
+    <section class="section2"></section>
+    <section class="section3"></section>
+    <section class="section4"></section>
+    <section class="section5"></section>
+  </div>
+</div>
+</body>
+</html>
