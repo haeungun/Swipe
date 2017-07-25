@@ -20,13 +20,20 @@ class Swipe {
     }
 
     shiftElement(width) {
+        let changeShift;
         if (width > this.crit) {
-            this.shift = ++this.saveShift;
+            changeShift = this.saveShift + 1;
         } else if (width < -this.crit) {
-            this.shift = --this.saveShift;
+            changeShift = this.saveShift - 1;
         } else {
-            this.shift = this.saveShift;
+            changeShift = this.saveShift;
         }
+
+        console.log(changeShift);
+        if (changeShift >= 0 && changeShift < this.elem.children.length)
+            this.shift = changeShift;
+        else
+            this.shift = this.saveShift;
     }
 
     isScroll() {
