@@ -26,19 +26,17 @@ document.addEventListener("DOMContentLoaded", () => {
         element.style.transform = `translateX(${moveOffset}px)`;
     });
     element.addEventListener("touchend", (e) => {
-        endOffset = e.pageX;
-        console.log("END ::", e.pageX);
-        swipe.shift = saveShift;
-
-        var den = Math.abs(startOffset) - Math.abs(endOffset);
-        if (den < -20) {
-            element.style.transition = ".5s";
-            element.style.transform = "translateX(250px)";
-        } else if (den > 20){
-            element.style.transform = "translateX(0px)";
-        } else {
-
-        }
+        const endOffset = e.changedTouches[0];
+        var clientWidth = e.changedTouches[0].target.clientWidth;
+        var distX = startOffset.pageX - endOffset.pageX;
+        var widthRatio = distX / clientWidth;
+        console.warn(widthRatio);
+        if (widthRatio > 0.2)
+            swipe.shift = ++saveShift;
+        else if (widthRatio < -0.2)
+            swipe.shift = --saveShift;
+        else
+            swipe.shift = saveShift;
     });
     
 });
