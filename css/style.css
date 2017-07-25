@@ -18,19 +18,19 @@ body {
 	width: 100vw
 }
 .section1 {
-	background: red
+	background: #ff6f69;
 }
 .section2 {
-	background: green
+	background: #ffcc5c;
 }
 .section3 {
-	background: blue
+	background: #96ceb4;
 }
 .section4 {
-	background: purple
+	background: #87bdd8;
 }
 .section5 {
-	background: palegoldenrod
+	background: #b8a9c9;
 }
 .transition {
 	transition: .5s
