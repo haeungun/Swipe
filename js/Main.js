@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
+    var swipe = new Swipe();
     var startOffset;
     var endOffset;
     var originOffset;
