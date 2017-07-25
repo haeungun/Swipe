@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    var swipe = new Swipe();
+    var swipe = new Swipe(".viewport");
     swipe.on();
     
 });
