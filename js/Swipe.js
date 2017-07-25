@@ -1,13 +1,14 @@
 class Swipe {
+    
     constructor(element, criteria) {
         this.elem = document.querySelector(element);
         this.crit = criteria;
     }
 
     on() {
-        this.elem.addEventListener("touchstart", this.touchStartEventHandler.bind(this));
-        this.elem.addEventListener("touchmove", this.touchMoveEventHandler.bind(this));
-        this.elem.addEventListener("touchend", this.touchEndEventHandler.bind(this));
+        this.elem.addEventListener('touchstart', this.touchStartEventHandler.bind(this));
+        this.elem.addEventListener('touchmove', this.touchMoveEventHandler.bind(this));
+        this.elem.addEventListener('touchend', this.touchEndEventHandler.bind(this));
     }
 
     get shift() {
@@ -18,52 +19,25 @@ class Swipe {
         this.elem.setAttribute('style', `--shift: ${val};`);
     }
 
-    touchStartEventHandler(event) {
-        this.startOffset = event;
-    }
-
-    touchMoveEventHandler(event) {
-    }
-
-    touchEndEventHandler(event) {
-        this.endOffset = event;
-        console.log(this.isScroll());
-    }
-
-    set startOffset(event) {
-        this.startXOffset = event.pageX;
-        this.startYOffset = event.pageY;
-    }
-
-    set endOffset(event) {
-        this.endXffset = event.pageX;
-        this.endYOffset = event.pageY;
-    }
-    /*
-    set originTranslateX(event) {
-        
-    }
-    */
-    setDistance() {
-        this.den = Math.abs(this.startXOffset) - Math.abs(this.endXffset);
-    }
-
-    moveElement(distance) {
-        const dis = distance;
-        this.elem.style.transform = `translateX(${dis})`;
-    }
-
-    isSwiping() {
-        if (Math.abs(this.den) > this.crit) {
-            return true;
+    shiftElement(width) {
+        if (width > this.crit) {
+            this.shift = ++this.saveShift;
+        } else if (width < -this.crit) {
+            this.shift = --this.saveShift;
+        } else {
+            this.shift = this.saveShift;
         }
-        return false;
     }
 
     isScroll() {
-        const angle = this.getAngle(this.startXOffset, this.startYOffset, this.endXffset, this.endYOffset);
+        const x1 = this.startOffset.pageX;
+        const y1 = this.startOffset.pageY;
+        const x2 = this.endOffset.pageX;
+        const y2 = this.endOffset.pageY;
+
+        const angle = this.getAngle(x1, y1, x2, y2);
         const absAngle = Math.abs(angle);
-        console.log(angle);
+        
         if (!(absAngle > 75 && absAngle < 105)) {
             return true;
         }
@@ -77,5 +51,33 @@ class Swipe {
         const degree = (radius * 180) / Math.PI;
 
         return degree;
+    }
+
+    touchStartEventHandler(event) {
+        this.startOffset = event.targetTouches[0];
+        this.saveShift = this.shift;
+    }
+
+    touchMoveEventHandler(event) {
+         this.moveOffset = event.targetTouches[0];
+         const distX = this.startOffset.pageX - this.moveOffset.pageX;
+         const distY = this.startOffset.pageY - this.moveOffset.pageY;
+         const clientWidth = this.moveOffset.target.clientWidth;
+         const widthRatio = distX / clientWidth;
+         this.shift = this.saveShift + widthRatio;
+    }
+
+    touchEndEventHandler(event) {
+        this.endOffset = event.changedTouches[0];
+        const distX = this.startOffset.pageX - this.endOffset.pageX;
+        const clientWidth = this.endOffset.target.clientWidth;
+        const widthRatio = distX / clientWidth;
+
+        if (this.isScroll()) {
+            this.shift = this.saveShift;
+        } else {
+            this.shiftElement(widthRatio);
+        }
+        
     }
 }
