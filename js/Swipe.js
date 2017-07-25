@@ -56,6 +56,7 @@ class Swipe {
     touchStartEventHandler(event) {
         this.startOffset = event.targetTouches[0];
         this.saveShift = this.shift;
+        this.elem.classList.remove('transition');
     }
 
     touchMoveEventHandler(event) {
@@ -72,6 +73,7 @@ class Swipe {
         const distX = this.startOffset.pageX - this.endOffset.pageX;
         const clientWidth = this.endOffset.target.clientWidth;
         const widthRatio = distX / clientWidth;
+        this.elem.classList.add('transition');
 
         if (this.isScroll()) {
             this.shift = this.saveShift;
