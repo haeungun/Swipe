@@ -3,6 +3,7 @@ class Swipe {
     constructor(element, criteria) {
         this.elem = document.querySelector(element);
         this.crit = criteria;
+        this.saveShift = null;
     }
 
     on() {
@@ -61,6 +62,9 @@ class Swipe {
     }
 
     touchStartEventHandler(event) {
+        if (this.saveShift !== null) {
+            this.shift = this.saveShift;
+        }
         this.startOffset = event.targetTouches[0];
         this.saveShift = this.shift;
         this.elem.classList.remove('transition');
@@ -87,6 +91,6 @@ class Swipe {
         } else {
             this.shiftElement(widthRatio);
         }
-        
+        this.saveShift = null;
     }
 }
