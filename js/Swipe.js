@@ -62,7 +62,9 @@ class Swipe {
 
     isScroll() {
         const angle = this.getAngle(this.startXOffset, this.startYOffset, this.endXffset, this.endYOffset);
-        if (!(angle > 75 && angle < 105) || (angle > 165 && angle < 225)) {
+        const absAngle = Math.abs(angle);
+        console.log(angle);
+        if (!(absAngle > 75 && absAngle < 105)) {
             return true;
         }
         return false;
