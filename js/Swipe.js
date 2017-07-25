@@ -23,7 +23,7 @@ class Swipe {
     }
 
     touchMoveEventHandler(event) {
-  
+
     }
 
     touchEndEventHandler(event) {
@@ -31,11 +31,13 @@ class Swipe {
     }
 
     set startOffset(event) {
-        this.startOffset = event.pageX;
+        this.startXOffset = event.pageX;
+        this.startYOffset = event.pageY;
     }
 
     set endOffset(event) {
-        this.endOffset = event.pageX;
+        this.endXffset = event.pageX;
+        this.endYOffset = event.pageY;
     }
 
     set originTranslateX() {
@@ -43,7 +45,7 @@ class Swipe {
     }
 
     set distance() {
-        this.den = Math.abs(this.startOffset) - Math.abs(this.endOffset);
+        this.den = Math.abs(this.startXOffset) - Math.abs(this.endXffset);
     }
 
     moveElement(distance) {
@@ -56,5 +58,19 @@ class Swipe {
             return true;
         }
         return false;
+    }
+
+    isScroll() {
+
+    }
+
+    getAngle(x1, y1, x2, y2) {
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+
+        const radius = Math.atan2(dx, dy);
+        const degree = (radius * 180) / Math.PI;
+
+        return degree;
     }
 }
