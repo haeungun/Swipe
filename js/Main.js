@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     element.addEventListener("touchmove", (e) => {
         const moveOffset = e.pageX;
+        console.log(element.style.transform);
         element.style.transform = `translateX(${moveOffset}px)`;
     });
     element.addEventListener("touchend", (e) => {

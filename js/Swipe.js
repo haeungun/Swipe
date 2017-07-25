@@ -11,10 +11,11 @@ class Swipe {
     }
 
     get shift() {
-        return document.querySelector('.viewport').getAttribute('style').replace(/--current: ([0-9]+);/,'$1') * 1;
+        return this.elem.getAttribute('style').replace(/--current: ([0-9]+);/,'$1') * 1;
     }
+
     set shift(val) {
-        document.querySelector('.viewport').setAttribute('style', `--current: ${val}`);
+        this.elem.setAttribute('style', `--current: ${val}`);
     }
 
     touchStartEventHandler(event) {
@@ -29,20 +30,19 @@ class Swipe {
 
     }
 
-    setStartOffset(event) {
+    set startOffset(event) {
         this.startOffset = event.pageX;
     }
 
-    setEndOffset(event) {
+    set endOffset(event) {
         this.endOffset = event.pageX;
-        this.setDistance();
     }
 
-    setOriginTranslateX() {
+    set originTranslateX() {
         
     }
 
-    setDistance() {
+    set distance() {
         this.den = Math.abs(this.startOffset) - Math.abs(this.endOffset);
     }
 
