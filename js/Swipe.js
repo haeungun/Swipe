@@ -11,11 +11,11 @@ class Swipe {
     }
 
     get shift() {
-        return this.elem.getAttribute('style').replace(/--current: ([0-9]+);/,'$1') * 1;
+        return this.elem.getAttribute('style').replace(/--shift: ([+-]?([0-9]*[.])?[0-9]+);/,'$1') * 1;
     }
 
     set shift(val) {
-        this.elem.setAttribute('style', `--current: ${val}`);
+        this.elem.setAttribute('style', `--shift: ${val};`);
     }
 
     touchStartEventHandler(event) {
