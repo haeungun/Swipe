@@ -51,20 +51,20 @@ describe("calculate distance", function() {
 
     it ("should return object has X, Y 1", function() {
         const start = { pageX: 50, pageY: 40 }; 
-        const end = { pageX: 40, pageY: 30 }; 
+        const end = { pageX: 40, pageY: 40 }; 
 
         obj = swipe.calcDistance(start, end);
         assert.equal(obj.X, 10);
-        assert.equal(obj.Y, 10);
+        assert.equal(obj.Y, 0);
     });
 
     it ("should return object has X, Y 2", function() {
         const start = { pageX: 10000000000, pageY: 0 }; 
-        const end = { pageX: 10000000000, pageY: 30 }; 
+        const end = { pageX: 10000000000, pageY: 0 }; 
 
         obj2 = swipe.calcDistance(start, end);
         assert.equal(obj2.X, 0);
-        assert.equal(obj2.Y, -30);
+        assert.equal(obj2.Y, 0);
     });
 
     it ("should return object has X, Y 3", function() {
@@ -77,7 +77,7 @@ describe("calculate distance", function() {
     });
 
     it ("check is scroll event 1", function() {
-        assert.equal(swipe.isScroll(obj, obj2), true);
+        assert.equal(swipe.isScroll(obj, obj2), false);
     });
 
     it ("check is scroll event 2", function() {
