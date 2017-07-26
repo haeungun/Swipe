@@ -20,11 +20,11 @@ class Swipe {
         this.elem.setAttribute('style', `--shift: ${val};`);
     }
 
-    shiftElement(width) {
+    shiftElement(distance) {
         let changeShift;
-        if (width > this.crit) {
+        if (distance > this.crit) {
             changeShift = this.saveShift + 1;
-        } else if (width < -this.crit) {
+        } else if (distance < -this.crit) {
             changeShift = this.saveShift - 1;
         } else {
             changeShift = this.saveShift;
