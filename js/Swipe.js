@@ -12,6 +12,12 @@ class Swipe {
         this.elem.addEventListener('touchend', this.touchEndEventHandler.bind(this));
     }
 
+    off() {
+        this.elem.removeEventListener('touchstart', this.touchStartEventHandler.bind(this));
+        this.elem.removeEventListener('touchmove', this.touchMoveEventHandler.bind(this));
+        this.elem.removeEventListener('touchend', this.touchEndEventHandler.bind(this));
+    }
+
     get shift() {
         return this.elem.getAttribute('style').replace(/--shift: ([+-]?([0-9]*[.])?[0-9]+);/,'$1') * 1;
     }
