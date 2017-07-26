@@ -68,8 +68,8 @@ describe("calculate distance", function() {
         const end = { pageX: 500000000000000, pageY: -1000000000 }; 
 
         const obj = swipe.calcDistance(start, end);
-        assert.equal(obj.X, -499,999,876,876,877);
-        assert.equal(obj.Y, 1,001,000,000,000);
+        assert.equal(obj.X, -499999876876877);
+        assert.equal(obj.Y, 1001000000000);
     });
 });
 
