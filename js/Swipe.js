@@ -28,6 +28,7 @@ class Swipe {
 
     shiftElement(distance) {
         let changeShift;
+
         if (distance > this.crit) {
             changeShift = this.saveShift + 1;
         } else if (distance < -this.crit) {
@@ -36,18 +37,17 @@ class Swipe {
             changeShift = this.saveShift;
         }
 
-        console.log(changeShift);
         if (changeShift >= 0 && changeShift < this.elem.children.length)
             this.shift = changeShift;
         else
             this.shift = this.saveShift;
     }
 
-    isScroll() {
-        const x1 = this.startOffset.pageX;
-        const y1 = this.startOffset.pageY;
-        const x2 = this.endOffset.pageX;
-        const y2 = this.endOffset.pageY;
+    isScroll(start, end) {
+        const x1 = start.pageX;
+        const y1 = start.pageY;
+        const x2 = end.pageX;
+        const y2 = end.pageY;
 
         const angle = this.getAngle(x1, y1, x2, y2);
         const absAngle = Math.abs(angle);
@@ -67,32 +67,46 @@ class Swipe {
         return degree;
     }
 
+    addClass(ele, cssClass) {
+        ele.classList.add(cssClass);
+    }
+
+    removeClass(ele, cssClass) {
+        ele.classList.remove(cssClass);
+    }
+
+    calcDistance(start, end) {
+        return {
+            X: start.pageX - end.pageX,
+            Y: start.pageY - end.pageY
+        }
+    }
+
     touchStartEventHandler(event) {
         if (this.saveShift !== null) {
             this.shift = this.saveShift;
         }
         this.startOffset = event.targetTouches[0];
         this.saveShift = this.shift;
-        this.elem.classList.remove('transition');
+        this.removeClass(this.elem, 'transition');
     }
 
     touchMoveEventHandler(event) {
          this.moveOffset = event.targetTouches[0];
-         const distX = this.startOffset.pageX - this.moveOffset.pageX;
-         const distY = this.startOffset.pageY - this.moveOffset.pageY;
+         const dist = this.calcDistance(this.startOffset, this.moveOffset);
          const clientWidth = this.moveOffset.target.clientWidth;
-         const widthRatio = distX / clientWidth;
+         const widthRatio = dist.X / clientWidth;
          this.shift = this.saveShift + widthRatio;
     }
 
     touchEndEventHandler(event) {
         this.endOffset = event.changedTouches[0];
-        const distX = this.startOffset.pageX - this.endOffset.pageX;
+        const dist = this.calcDistance(this.startOffset, this.moveOffset);
         const clientWidth = this.endOffset.target.clientWidth;
-        const widthRatio = distX / clientWidth;
-        this.elem.classList.add('transition');
+        const widthRatio = dist.X / clientWidth;
+        this.addClass(this.elem, 'transition');
 
-        if (this.isScroll()) {
+        if (this.isScroll(this.startOffset, this.endOffset)) {
             this.shift = this.saveShift;
         } else {
             this.shiftElement(widthRatio);

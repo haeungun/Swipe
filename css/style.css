@@ -11,7 +11,7 @@ body {
 .viewport {
 	transform: translateX(calc(-100vw * var(--shift)));
 	float: left;
-	display: flex
+	display: flex;
 }
 .viewport section {
 	height: 100vh;
