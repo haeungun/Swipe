@@ -45,15 +45,11 @@ describe("add and remove class", function() {
 
 describe("calculate distance", function() {
     
-    var obj;
-    var obj2;
-    var obj3;
-
     it ("should return object has X, Y 1", function() {
         const start = { pageX: 50, pageY: 40 }; 
         const end = { pageX: 40, pageY: 40 }; 
 
-        obj = swipe.calcDistance(start, end);
+        const obj = swipe.calcDistance(start, end);
         assert.equal(obj.X, 10);
         assert.equal(obj.Y, 0);
     });
@@ -62,7 +58,7 @@ describe("calculate distance", function() {
         const start = { pageX: 10000000000, pageY: 0 }; 
         const end = { pageX: 10000000000, pageY: 0 }; 
 
-        obj2 = swipe.calcDistance(start, end);
+        const obj2 = swipe.calcDistance(start, end);
         assert.equal(obj2.X, 0);
         assert.equal(obj2.Y, 0);
     });
@@ -71,23 +67,42 @@ describe("calculate distance", function() {
         const start = { pageX: 123123123, pageY: 1000000000000 }; 
         const end = { pageX: 500000000000000, pageY: -1000000000 }; 
 
-        obj3 = swipe.calcDistance(start, end);
+        const obj3 = swipe.calcDistance(start, end);
         assert.equal(obj3.X, -499999876876877);
         assert.equal(obj3.Y, 1001000000000);
     });
+
+    
+});
+
+describe("isScroll", function() {
+
+    const obj = { X: 0, Y: 0 };
+    const obj2 = { X: 0, Y: 0 };
+    const obj3 = { X: 100, Y: 0 };
+    const obj4 = { X: 0, Y: 100 };
+    const obj5 = { X: 100, Y: 100 };
 
     it ("check is scroll event 1", function() {
         assert.equal(swipe.isScroll(obj, obj2), false);
     });
 
     it ("check is scroll event 2", function() {
-        assert.equal(swipe.isScroll(obj, obj3), true);
+        assert.equal(swipe.isScroll(obj, obj3), false);
     });
 
     it ("check is scroll event 3", function() {
-        assert.equal(swipe.isScroll(obj2, obj3), true);
+        assert.equal(swipe.isScroll(obj2, obj3), false);
     });
-});
+
+    it ("check is scroll event 4", function() {
+        assert.equal(swipe.isScroll(obj2, obj4), true);
+    });
+
+    it ("check is scroll event 5", function() {
+        assert.equal(swipe.isScroll(obj2, obj5), true);
+    });
+})
 
 
 
